@@ -325,6 +325,8 @@ export default function Home() {
         index={quickWriteLightboxIndex}
         plugins={[Zoom]}
       />
+
+      {/* Trigger deployment */}
     </div>
   );
 }

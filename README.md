@@ -1,36 +1,103 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Luke Lussier Portfolio Site
+
+A professional single-page portfolio website for Luke Lussier, Senior Medical Physics Resident, showcasing innovative tools for the medical physics community.
+
+## Live Site
+- **Development**: `http://localhost:3000`
+- **Production**: To be deployed on Vercel
+
+## Project Overview
+This portfolio site is designed to be accessed via QR code on business cards at AAPM conferences, showcasing:
+- **Rogue Resident**: An innovative educational roguelike for medical physics training
+- **QuickWrite**: A clinical documentation tool for streamlined MPC writeups
+
+## Technical Stack
+- **Framework**: Next.js 15 with App Router
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
+- **Deployment**: Vercel
+- **Fonts**: Inter (Google Fonts)
+
+## Features
+- ✅ Mobile-first responsive design
+- ✅ Professional medical/scientific aesthetic
+- ✅ Fast loading for conference environments
+- ✅ SEO optimized with proper metadata
+- ✅ Accessible navigation and interactions
+- ✅ Project image galleries with descriptions
+- ✅ Contact information and social links
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+- Node.js 18+ 
+- npm or yarn
 
+### Installation
 ```bash
+# Clone the repository
+git clone <repository-url>
+cd portfolio-site
+
+# Install dependencies
+npm install
+
+# Start development server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Visit `http://localhost:3000` to view the site.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Available Scripts
+- `npm run dev` - Start development server
+- `npm run build` - Build production version
+- `npm run start` - Start production server
+- `npm run lint` - Run ESLint
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Project Structure
+```
+portfolio-site/
+├── public/
+│   └── images/           # Project screenshots and photos
+├── src/
+│   └── app/
+│       ├── globals.css   # Global styles
+│       ├── layout.tsx    # Root layout with SEO metadata
+│       └── page.tsx      # Main portfolio page
+└── README.md
+```
 
-## Learn More
+## Deployment
 
-To learn more about Next.js, take a look at the following resources:
+### Vercel (Recommended)
+1. Push code to GitHub/GitLab
+2. Connect repository to Vercel
+3. Deploy automatically on each push to main branch
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Manual Deployment
+```bash
+npm run build
+npm run start
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Design Specifications
+- **Primary Color**: Deep blue (#1e40af)
+- **Secondary Color**: Warm amber (#f59e0b)
+- **Accent Color**: Teal (#14b8a6)
+- **Background**: Light gray (#f9fafb)
+- **Typography**: Inter font family
 
-## Deploy on Vercel
+## Mobile Optimization
+- Touch-friendly button sizes (min 44px)
+- Stacked layout on screens < 768px
+- Optimized images with proper alt text
+- Fast loading on conference WiFi
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Contact
+For questions or updates:
+- **Email**: lussierl@uthscsa.edu
+- **Phone**: (210) 639-3003
+- **Institution**: Mays Cancer Center, UT Health San Antonio
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+Built with ❤️ for the medical physics community

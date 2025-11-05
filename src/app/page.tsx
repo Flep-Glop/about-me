@@ -12,22 +12,60 @@ export default function Home() {
   const [quickWriteLightboxOpen, setQuickWriteLightboxOpen] = useState(false);
   const [quickWriteLightboxIndex, setQuickWriteLightboxIndex] = useState(0);
 
+  // Carousel states
+  const [rogueCarouselIndex, setRogueCarouselIndex] = useState(0);
+  const [quickWriteCarouselIndex, setQuickWriteCarouselIndex] = useState(0);
+
+  const rogueImages = [
+    { src: "/images/rogue1.png", alt: "Rogue Resident Main Menu" },
+    { src: "/images/rogue2a.png", alt: "Rogue Resident Night Phase - Knowledge Constellation" },
+    { src: "/images/rogue2b.png", alt: "Rogue Resident Night Phase - Home View" },
+    { src: "/images/rogue3.png", alt: "Rogue Resident Activities Interface" },
+    { src: "/images/rogue4.png", alt: "Rogue Resident Challenge System" },
+  ];
+
+  const quickWriteImages = [
+    { src: "/images/quickwrite1.png", alt: "QuickWrite Main Interface" },
+    { src: "/images/quickwrite2.png", alt: "QuickWrite Report Generation" },
+  ];
+
+  const nextRogueImage = () => {
+    setRogueCarouselIndex((prev) => (prev + 1) % rogueImages.length);
+  };
+
+  const prevRogueImage = () => {
+    setRogueCarouselIndex((prev) => (prev - 1 + rogueImages.length) % rogueImages.length);
+  };
+
+  const nextQuickWriteImage = () => {
+    setQuickWriteCarouselIndex((prev) => (prev + 1) % quickWriteImages.length);
+  };
+
+  const prevQuickWriteImage = () => {
+    setQuickWriteCarouselIndex((prev) => (prev - 1 + quickWriteImages.length) % quickWriteImages.length);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen" style={{ background: 'var(--rr-dark-bg)' }}>
       {/* Header Section */}
-      <header className="bg-white shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 py-6">
+      <header style={{ background: 'var(--rr-darkest-bg)', borderBottom: '2px solid var(--rr-border)' }}>
+        <div className="max-w-7xl mx-auto px-4 py-8">
           <div className="text-center">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">
+            <h1 className="text-5xl md:text-7xl font-bold mb-3" style={{ color: 'var(--rr-primary)' }}>
               Luke Lussier
             </h1>
-            <p className="text-lg text-gray-600 mb-4">
+            <p className="text-xl md:text-2xl mb-4" style={{ color: 'var(--rr-text-secondary)' }}>
               Senior Medical Physics Resident | UT Health San Antonio
             </p>
-            <div className="flex justify-center space-x-6">
+            <div className="flex justify-center gap-6">
               <a 
                 href="mailto:lussierl@uthscsa.edu" 
-                className="text-blue-700 hover:text-blue-900 transition-colors"
+                className="px-4 py-2 rounded transition-all duration-200 hover:scale-105"
+                style={{ 
+                  background: 'var(--rr-surface)', 
+                  color: 'var(--rr-primary)',
+                  border: '2px solid var(--rr-primary)'
+                }}
               >
                 Email
               </a>
@@ -35,7 +73,12 @@ export default function Home() {
                 href="https://www.linkedin.com/in/luke-lussier-332243171/" 
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-blue-700 hover:text-blue-900 transition-colors"
+                className="px-4 py-2 rounded transition-all duration-200 hover:scale-105"
+                style={{ 
+                  background: 'var(--rr-surface)', 
+                  color: 'var(--rr-primary)',
+                  border: '2px solid var(--rr-primary)'
+                }}
               >
                 LinkedIn
               </a>
@@ -46,17 +89,18 @@ export default function Home() {
 
       {/* Hero Section */}
       <section className="py-16 px-4">
-        <div className="max-w-4xl mx-auto text-center">
+        <div className="max-w-5xl mx-auto text-center">
           <div className="mb-8">
             <Image
               src="/images/Luke Lussier (S).jpg"
               alt="Luke Lussier"
               width={200}
               height={200}
-              className="rounded-full mx-auto mb-6 shadow-lg"
+              className="rounded-full mx-auto mb-6"
+              style={{ border: '4px solid var(--rr-primary)' }}
             />
           </div>
-          <p className="text-xl text-gray-700 leading-relaxed">
+          <p className="text-xl leading-relaxed" style={{ color: 'var(--rr-text-secondary)' }}>
             Passionate about advancing medical physics education and clinical efficiency through innovative digital tools. 
             Currently developing solutions that make complex physics concepts more intuitive and clinical workflows more streamlined.
           </p>
@@ -64,110 +108,122 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section className="py-16 px-4 bg-white">
-        <div className="max-w-6xl mx-auto">
-          <h2 className="text-3xl font-bold text-center text-gray-900 mb-16">
-            Featured Projects
-          </h2>
-
+      <section className="py-16 px-4">
+        <div className="max-w-7xl mx-auto">
           {/* Rogue Resident Project */}
-          <div className="mb-20">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              {/* Image Gallery */}
-              <div className="space-y-4">
-                <div className="grid grid-cols-2 gap-4">
-                  <Image
-                    src="/images/rogue1.png"
-                    alt="Rogue Resident Knowledge Constellation"
-                    width={300}
-                    height={200}
-                    className="rounded-lg shadow-md w-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-                    onClick={() => {
-                      setRogueLightboxIndex(0);
-                      setRogueLightboxOpen(true);
+          <div className="mb-24">
+            <div className="grid lg:grid-cols-5 gap-12 items-start">
+              {/* Image Carousel */}
+              <div className="space-y-6 lg:col-span-3">
+                <div className="relative group">
+                  <div 
+                    className="rounded-lg overflow-hidden"
+                    style={{ 
+                      background: 'var(--rr-surface)',
+                      border: '3px solid var(--rr-border)',
+                      aspectRatio: '16/9'
                     }}
-                  />
-                  <Image
-                    src="/images/rogue2.png"
-                    alt="Rogue Resident Gameplay"
-                    width={300}
-                    height={200}
-                    className="rounded-lg shadow-md w-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-                    onClick={() => {
-                      setRogueLightboxIndex(1);
-                      setRogueLightboxOpen(true);
-                    }}
-                  />
-                  <Image
-                    src="/images/rogue3.png"
-                    alt="Rogue Resident Interface"
-                    width={300}
-                    height={200}
-                    className="rounded-lg shadow-md w-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-                    onClick={() => {
-                      setRogueLightboxIndex(2);
-                      setRogueLightboxOpen(true);
-                    }}
-                  />
-                   <Image
-                    src="/images/rogue4.png"
-                    alt="Rogue Resident Achievements"
-                    width={300}
-                    height={200}
-                    className="rounded-lg shadow-md w-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-                    onClick={() => {
-                      setRogueLightboxIndex(3);
-                      setRogueLightboxOpen(true);
-                    }}
-                  />
+                  >
+                    <Image
+                      src={rogueImages[rogueCarouselIndex].src}
+                      alt={rogueImages[rogueCarouselIndex].alt}
+                      width={1200}
+                      height={675}
+                      className="w-full h-full object-contain cursor-pointer"
+                      onClick={() => {
+                        setRogueLightboxIndex(rogueCarouselIndex);
+                        setRogueLightboxOpen(true);
+                      }}
+                    />
+                    
+                    {/* Navigation Arrows */}
+                    <button
+                      onClick={prevRogueImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                      style={{ 
+                        background: 'var(--rr-darkest-bg)',
+                        border: '2px solid var(--rr-primary)',
+                        color: 'var(--rr-primary)'
+                      }}
+                      aria-label="Previous image"
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <path d="M15 18l-6-6 6-6" />
+                      </svg>
+                    </button>
+                    
+                    <button
+                      onClick={nextRogueImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                      style={{ 
+                        background: 'var(--rr-darkest-bg)',
+                        border: '2px solid var(--rr-primary)',
+                        color: 'var(--rr-primary)'
+                      }}
+                      aria-label="Next image"
+                    >
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                        <path d="M9 18l6-6-6-6" />
+                      </svg>
+                    </button>
+                  </div>
+                  
+                  {/* Thumbnail Indicators */}
+                  <div className="flex justify-center gap-3 mt-4">
+                    {rogueImages.map((_, index) => (
+                      <button
+                        key={index}
+                        onClick={() => setRogueCarouselIndex(index)}
+                        className="w-3 h-3 rounded-full transition-all duration-200"
+                        style={{
+                          background: index === rogueCarouselIndex ? 'var(--rr-primary)' : 'var(--rr-border)',
+                          transform: index === rogueCarouselIndex ? 'scale(1.2)' : 'scale(1)'
+                        }}
+                        aria-label={`Go to image ${index + 1}`}
+                      />
+                    ))}
+                  </div>
+                  
+                  {/* Image Counter */}
+                  <div className="text-center mt-2" style={{ color: 'var(--rr-text-muted)' }}>
+                    {rogueCarouselIndex + 1} / {rogueImages.length}
+                  </div>
                 </div>
               </div>
 
               {/* Description */}
-              <div className="space-y-6">
-                <h3 className="text-2xl font-bold text-teal-600">
-                  Rogue Resident: Medical Physics Education Reimagined
+              <div className="space-y-6 lg:col-span-2">
+                <h3 className="text-3xl md:text-5xl font-bold" style={{ color: 'var(--rr-accent-warm)' }}>
+                  Rogue Resident
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
-                  A new approach to medical physics education that visualizes knowledge as an interconnected constellation. 
-                  Instead of memorizing isolated facts, residents build connections between concepts across all four domains 
-                  while working through clinically relevant scenarios.
+                <p className="text-xl" style={{ color: 'var(--rr-yellow)' }}>
+                  Medical Physics Education Reimagined
                 </p>
-                
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-gray-900">Key Features:</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-teal-600 mr-2">•</span>
-                      Visual knowledge mapping with interconnected concepts
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-teal-600 mr-2">•</span>
-                      Narrative-driven learning with memorable characters
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-teal-600 mr-2">•</span>
-                      Progressive difficulty matching learner development
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-teal-600 mr-2">•</span>
-                      Covers all four core domains: Treatment Planning, Radiation Therapy, Linac Anatomy, and Dosimetry
-                    </li>
-                  </ul>
-                </div>
+                <p className="text-lg leading-relaxed" style={{ color: 'var(--rr-text-secondary)' }}>
+                  An educational game that visualizes medical physics knowledge as an interconnected constellation, helping motivate and test residents across core domains through engaging activities and clinical scenarios.
+                </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
+                <div 
+                  className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 rounded-lg"
+                  style={{ background: 'var(--rr-surface)', border: '2px solid var(--rr-border)' }}
+                >
                   <div>
-                    <span className="font-semibold text-gray-900">Target:</span>
-                    <p className="text-gray-600">Medical physics residents and students</p>
+                    <span className="font-semibold block mb-1" style={{ color: 'var(--rr-primary)' }}>
+                      Target
+                    </span>
+                    <p style={{ color: 'var(--rr-text-muted)' }}>Medical physics residents and students</p>
                   </div>
                   <div>
-                    <span className="font-semibold text-gray-900">Status:</span>
-                    <p className="text-gray-600">In active development</p>
+                    <span className="font-semibold block mb-1" style={{ color: 'var(--rr-accent-green)' }}>
+                      Status
+                    </span>
+                    <p style={{ color: 'var(--rr-text-muted)' }}>In active development</p>
                   </div>
                   <div>
-                    <span className="font-semibold text-gray-900">Platform:</span>
-                    <p className="text-gray-600">Web-based (subscription model planned)</p>
+                    <span className="font-semibold block mb-1" style={{ color: 'var(--rr-magenta)' }}>
+                      Platform
+                    </span>
+                    <p style={{ color: 'var(--rr-text-muted)' }}>Web-based (subscription planned)</p>
                   </div>
                 </div>
               </div>
@@ -175,77 +231,129 @@ export default function Home() {
           </div>
 
           {/* QuickWrite Clinical Tool */}
-          <div className="mb-20">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
+          <div className="mb-24">
+            <div className="grid lg:grid-cols-5 gap-12 items-start">
               {/* Description */}
-              <div className="space-y-6 md:order-1">
-                <h3 className="text-2xl font-bold text-teal-600">
-                  QuickWrite: Streamlined Clinical Documentation
+              <div className="space-y-6 lg:col-span-2 lg:order-1">
+                <h3 className="text-3xl md:text-5xl font-bold" style={{ color: 'var(--rr-accent-warm)' }}>
+                  QuickWrite
                 </h3>
-                <p className="text-gray-700 leading-relaxed">
-                  A purpose-built tool designed to streamline MPC writeups for fusions and DIBHs using dynamic output 
-                  based on simple input, reducing time and errors. Part of the larger Residency Toolkit project featuring 
-                  updated digital tools for QA, P&Ps, and more.
+                <p className="text-xl" style={{ color: 'var(--rr-yellow)' }}>
+                  Streamlined Clinical Documentation
                 </p>
-                
-                <div className="space-y-3">
-                  <h4 className="font-semibold text-gray-900">Key Features:</h4>
-                  <ul className="space-y-2 text-gray-700">
-                    <li className="flex items-start">
-                      <span className="text-amber-500 mr-2">•</span>
-                      Automated MPC writeup generation for fusions and DIBHs
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-amber-500 mr-2">•</span>
-                      Dynamic output based on simple user input
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-amber-500 mr-2">•</span>
-                      Significant time savings and error reduction
-                    </li>
-                    <li className="flex items-start">
-                      <span className="text-amber-500 mr-2">•</span>
-                      Part of comprehensive Residency Toolkit suite
-                    </li>
-                  </ul>
-                </div>
+                <p className="text-lg leading-relaxed" style={{ color: 'var(--rr-text-secondary)' }}>
+                  Automated MPC writeup generation for fusions, DIBHs, and other complex cases. Currently collecting data from users to quantify the impact of the tool.
+                </p>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+                <div 
+                  className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-6 rounded-lg"
+                  style={{ background: 'var(--rr-surface)', border: '2px solid var(--rr-border)' }}
+                >
                   <div>
-                    <span className="font-semibold text-gray-900">Target:</span>
-                    <p className="text-gray-600">Practicing medical physicists</p>
+                    <span className="font-semibold block mb-1" style={{ color: 'var(--rr-primary)' }}>
+                      Target
+                    </span>
+                    <p style={{ color: 'var(--rr-text-muted)' }}>Practicing medical physicists</p>
                   </div>
                   <div>
-                    <span className="font-semibold text-gray-900">Impact:</span>
-                    <p className="text-gray-600">Streamlined clinical workflows</p>
+                    <span className="font-semibold block mb-1" style={{ color: 'var(--rr-accent-green)' }}>
+                      Status
+                    </span>
+                    <p style={{ color: 'var(--rr-text-muted)' }}>Polishing</p>
+                  </div>
+                  <div>
+                    <span className="font-semibold block mb-1" style={{ color: 'var(--rr-magenta)' }}>
+                      Platform
+                    </span>
+                    <p style={{ color: 'var(--rr-text-muted)' }}>Web-based (open-source)</p>
                   </div>
                 </div>
               </div>
 
-              {/* Image Gallery */}
-              <div className="space-y-4 md:order-2">
-                <Image
-                  src="/images/quickwrite1.png"
-                  alt="QuickWrite Main Interface"
-                  width={600}
-                  height={300}
-                  className="rounded-lg shadow-md w-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-                  onClick={() => {
-                    setQuickWriteLightboxIndex(0);
-                    setQuickWriteLightboxOpen(true);
-                  }}
-                />
-                <Image
-                  src="/images/quickwrite2.png"
-                  alt="QuickWrite Report Generation"
-                  width={600}
-                  height={300}
-                  className="rounded-lg shadow-md w-full object-cover cursor-pointer transition-transform duration-300 ease-in-out hover:scale-105"
-                  onClick={() => {
-                    setQuickWriteLightboxIndex(1);
-                    setQuickWriteLightboxOpen(true);
-                  }}
-                />
+              {/* Image Carousel */}
+              <div className="space-y-6 lg:col-span-3 lg:order-2">
+                <div className="relative group">
+                  <div 
+                    className="rounded-lg overflow-hidden"
+                    style={{ 
+                      background: 'var(--rr-surface)',
+                      border: '3px solid var(--rr-border)',
+                      aspectRatio: '16/9'
+                    }}
+                  >
+                    <Image
+                      src={quickWriteImages[quickWriteCarouselIndex].src}
+                      alt={quickWriteImages[quickWriteCarouselIndex].alt}
+                      width={1200}
+                      height={675}
+                      className="w-full h-full object-contain cursor-pointer"
+                      onClick={() => {
+                        setQuickWriteLightboxIndex(quickWriteCarouselIndex);
+                        setQuickWriteLightboxOpen(true);
+                      }}
+                    />
+                    
+                    {quickWriteImages.length > 1 && (
+                      <>
+                        {/* Navigation Arrows */}
+                        <button
+                          onClick={prevQuickWriteImage}
+                          className="absolute left-4 top-1/2 -translate-y-1/2 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                          style={{ 
+                            background: 'var(--rr-darkest-bg)',
+                            border: '2px solid var(--rr-primary)',
+                            color: 'var(--rr-primary)'
+                          }}
+                          aria-label="Previous image"
+                        >
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                            <path d="M15 18l-6-6 6-6" />
+                          </svg>
+                        </button>
+                        
+                        <button
+                          onClick={nextQuickWriteImage}
+                          className="absolute right-4 top-1/2 -translate-y-1/2 p-3 rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300 hover:scale-110"
+                          style={{ 
+                            background: 'var(--rr-darkest-bg)',
+                            border: '2px solid var(--rr-primary)',
+                            color: 'var(--rr-primary)'
+                          }}
+                          aria-label="Next image"
+                        >
+                          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3">
+                            <path d="M9 18l6-6-6-6" />
+                          </svg>
+                        </button>
+                      </>
+                    )}
+                  </div>
+                  
+                  {quickWriteImages.length > 1 && (
+                    <>
+                      {/* Thumbnail Indicators */}
+                      <div className="flex justify-center gap-3 mt-4">
+                        {quickWriteImages.map((_, index) => (
+                          <button
+                            key={index}
+                            onClick={() => setQuickWriteCarouselIndex(index)}
+                            className="w-3 h-3 rounded-full transition-all duration-200"
+                            style={{
+                              background: index === quickWriteCarouselIndex ? 'var(--rr-primary)' : 'var(--rr-border)',
+                              transform: index === quickWriteCarouselIndex ? 'scale(1.2)' : 'scale(1)'
+                            }}
+                            aria-label={`Go to image ${index + 1}`}
+                          />
+                        ))}
+                      </div>
+                      
+                      {/* Image Counter */}
+                      <div className="text-center mt-2" style={{ color: 'var(--rr-text-muted)' }}>
+                        {quickWriteCarouselIndex + 1} / {quickWriteImages.length}
+                      </div>
+                    </>
+                  )}
+                </div>
               </div>
             </div>
           </div>
@@ -253,38 +361,57 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section className="py-16 px-4 bg-gray-50">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8">
-            Interested in Learning More?
+      <section className="py-16 px-4" style={{ background: 'var(--rr-darkest-bg)' }}>
+        <div className="max-w-5xl mx-auto text-center">
+          <h2 className="text-4xl md:text-6xl font-bold mb-8" style={{ color: 'var(--rr-primary)' }}>
+            Get in Touch
           </h2>
-          <p className="text-lg text-gray-700 mb-8">
-            I&apos;m always excited to discuss innovations in medical physics education and clinical tools. 
-            Feel free to reach out:
+          <p className="text-lg mb-12" style={{ color: 'var(--rr-text-secondary)' }}>
+            Let&apos;s discuss innovations in medical physics education and clinical tools.
           </p>
           
           <div className="grid md:grid-cols-3 gap-6">
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="text-blue-700 text-2xl mb-2">📧</div>
+            <div 
+              className="p-6 rounded-lg"
+              style={{ 
+                background: 'var(--rr-surface)',
+                border: '2px solid var(--rr-border)'
+              }}
+            >
+              <div className="text-4xl mb-3">📧</div>
               <a 
                 href="mailto:lussierl@uthscsa.edu"
-                className="text-blue-700 hover:text-blue-900 font-medium"
+                className="font-medium hover:underline"
+                style={{ color: 'var(--rr-primary)' }}
               >
                 lussierl@uthscsa.edu
               </a>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="text-blue-700 text-2xl mb-2">📱</div>
+            <div 
+              className="p-6 rounded-lg"
+              style={{ 
+                background: 'var(--rr-surface)',
+                border: '2px solid var(--rr-border)'
+              }}
+            >
+              <div className="text-4xl mb-3">📱</div>
               <a 
                 href="tel:+12106393003"
-                className="text-blue-700 hover:text-blue-900 font-medium"
+                className="font-medium hover:underline"
+                style={{ color: 'var(--rr-primary)' }}
               >
                 (210) 639-3003
               </a>
             </div>
-            <div className="bg-white p-6 rounded-lg shadow-sm">
-              <div className="text-blue-700 text-2xl mb-2">🏥</div>
-              <p className="text-gray-700">
+            <div 
+              className="p-6 rounded-lg"
+              style={{ 
+                background: 'var(--rr-surface)',
+                border: '2px solid var(--rr-border)'
+              }}
+            >
+              <div className="text-4xl mb-3">🏥</div>
+              <p style={{ color: 'var(--rr-text-secondary)' }}>
                 Mays Cancer Center<br />
                 UT Health San Antonio
               </p>
@@ -294,39 +421,42 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-white py-8 px-4 border-t">
-        <div className="max-w-6xl mx-auto text-center">
-          <p className="text-gray-600">
+      <footer className="py-8 px-4" style={{ borderTop: '2px solid var(--rr-border)' }}>
+        <div className="max-w-7xl mx-auto text-center">
+          <p style={{ color: 'var(--rr-text-muted)' }}>
             © 2025 Luke Lussier | Built with ❤️ for the medical physics community
           </p>
         </div>
       </footer>
 
+      {/* Lightboxes */}
       <Lightbox
         open={rogueLightboxOpen}
         close={() => setRogueLightboxOpen(false)}
         slides={[
           { src: "/images/rogue1.png" },
-          { src: "/images/rogue2.png" },
+          { src: "/images/rogue2a.png" },
+          { src: "/images/rogue2b.png" },
           { src: "/images/rogue3.png" },
           { src: "/images/rogue4.png" },
         ]}
         index={rogueLightboxIndex}
         plugins={[Zoom]}
+        styles={{
+          container: { backgroundColor: "rgba(9, 10, 20, 0.95)" },
+        }}
       />
 
       <Lightbox
         open={quickWriteLightboxOpen}
         close={() => setQuickWriteLightboxOpen(false)}
-        slides={[
-          { src: "/images/quickwrite1.png" },
-          { src: "/images/quickwrite2.png" },
-        ]}
+        slides={quickWriteImages.map(img => ({ src: img.src }))}
         index={quickWriteLightboxIndex}
         plugins={[Zoom]}
+        styles={{
+          container: { backgroundColor: "rgba(9, 10, 20, 0.95)" },
+        }}
       />
-
-      {/* Trigger deployment */}
     </div>
   );
 }

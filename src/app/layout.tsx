@@ -1,8 +1,15 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
+
+const aseprite = localFont({
+  src: "../../public/fonts/AsepriteFont.ttf",
+  variable: "--font-aseprite",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "Luke Lussier - Medical Physics Innovation",
@@ -34,7 +41,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={`${inter.className} ${aseprite.variable}`}>{children}</body>
     </html>
   );
 }
